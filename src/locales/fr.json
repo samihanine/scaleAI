@@ -15,6 +15,7 @@
     "setError": "Invalid access token or type",
     "email": "Adresse électronique",
     "password": "Password",
+    "reapeatPassword": "Répéter le mot de passe",
     "forgot": "Vous avez oublié votre mot de passe ?",
     "signIn": "Sign In",
     "signUp": "Sign Up",
@@ -35,7 +36,8 @@
     "signOutError": "Impossible de se déconnecter",
     "projects": "Projets",
     "account": "Compte",
-    "leads": "Prospects"
+    "leads": "Prospects",
+    "scenario": "Scénario"
   },
   "account": {
     "save": "Save",
@@ -51,7 +53,17 @@
     "subtitle": "Voici une liste de prospects"
   },
   "projects": {
+    "title": "Vos projets",
     "create": "Créer un nouveau projet",
+    "name": "Nom",
+    "add": "Créer"
+  },
+  "seo": {
+    "description": "Découvrez notre plateforme révolutionnaire basée sur l'IA, qui facilite la recherche et la prise de contact avec des prospects de manière automatisée. Gagnez du temps et boostez votre chiffre d'affaires dès aujourd'hui !"
+  },
+  "scenarios": {
+    "title": "Vos scénarios",
+    "create": "Créer un nouveau scénario",
     "name": "Nom",
     "add": "Créer"
   }

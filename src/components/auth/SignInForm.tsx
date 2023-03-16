@@ -6,7 +6,7 @@ import { deleteCookie } from 'cookies-next';
 
 import { Link } from '@/components/Link';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { GoogleButton } from '@/components/auth/GoogleButton';
+//import { GoogleButton } from '@/components/auth/GoogleButton';
 import { LANG_COOKIE_KEY } from '@/constants';
 
 export const SignInForm: React.FC = () => {
@@ -106,7 +106,7 @@ export const SignInForm: React.FC = () => {
           {loading ? <LoadingSpinner /> : t('signIn')}
         </button>
 
-        <GoogleButton type="signin" />
+        {/*<GoogleButton type="signin" />*/}
       </div>
     </form>
   );

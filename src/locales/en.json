@@ -15,6 +15,7 @@
     "setError": "Invalid access token or type.",
     "email": "Email address",
     "password": "Password",
+    "reapeatPassword": "Repeat password",
     "forgot": "Forgot your password?",
     "signIn": "Sign In",
     "signUp": "Sign Up",
@@ -35,7 +36,8 @@
     "signOutError": "Unable to sign out",
     "projects": "Projects",
     "account": "Account",
-    "leads": "Leads"
+    "leads": "Leads",
+    "scenario": "Scenario"
   },
   "account": {
     "save": "Save",
@@ -51,7 +53,17 @@
     "subtitle": "Here a list of leads"
   },
   "projects": {
+    "title": "Your projects",
     "create": "Create a new project",
+    "name": "Name",
+    "add": "Create"
+  },
+  "seo": {
+    "description": "Discover our revolutionary AI-based platform that makes it easy to find and connect with prospects in an automated way. Save time and boost your sales today !"
+  },
+  "scenarios": {
+    "title": "Your scenarios",
+    "create": "Create a new scenario",
     "name": "Name",
     "add": "Create"
   }

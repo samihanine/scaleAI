@@ -1,17 +1,52 @@
-import { useTranslations } from 'next-intl';
+import { trpc, type RouterOutputs } from '@/utils/trpc';
+//import { useTranslations } from 'next-intl';
+import { createColumnHelper } from '@tanstack/react-table';
+import { Table } from '../Table';
+import { Card } from '../Card';
+
+type Lead = RouterOutputs['leads']['getAll'][0];
 
 type ProjectListProps = {
-  leads?: [];
+  projectId: string;
 };
 
-export const LeadList: React.FC<ProjectListProps> = ({ leads }) => {
-  const t = useTranslations('leads');
+export const LeadList: React.FC<ProjectListProps> = ({ projectId }) => {
+  //const t = useTranslations('leads');
+  const { data: leads, isLoading } = trpc.leads.getAll.useQuery({
+    projectId,
+  });
 
-  console.log(leads);
+  const columnHelper = createColumnHelper<Lead>();
+
+  const columns = [
+    columnHelper.accessor('firstname', {
+      header: () => <span>First Name</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor((row) => row.lastname, {
+      id: 'lastName',
+      header: () => <span>Last Name</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor('email', {
+      header: () => <span>Email</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor('organization', {
+      header: () => <span>Organization</span>,
+      footer: (info) => info.column.id,
+    }),
+    columnHelper.accessor('phone', {
+      header: () => <span>Phone</span>,
+      footer: (info) => info.column.id,
+    }),
+  ];
 
   return (
     <section className="flex flex-col gap-5" aria-labelledby="project-heading">
-      {t('subtitle')}
+      <Card className="w-full max-w-full">
+        <Table isLoading={isLoading} data={leads || []} columns={columns || []} />
+      </Card>
     </section>
   );
 };

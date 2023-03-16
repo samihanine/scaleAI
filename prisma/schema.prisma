@@ -35,13 +35,58 @@ model Leads {
     id           String    @id @default(uuid())
     createdAt    DateTime  @default(now())
     updatedAt    DateTime  @updatedAt
+    email        String
     projectId    String
     firstname    String?
     lastname     String?
     organization String?
-    email        String
+    description  String?
+    activity     String?
     phone        String?
     processedAt  DateTime?
+    metadata     Json?
 
     @@unique([projectId, email])
+}
+
+model Scenarios {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    projectId String
+    name      String
+
+    @@unique([projectId, name])
+}
+
+model ScenariosEvents {
+    id          String   @id @default(uuid())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    scenarioId  String
+    name        String
+    description String?
+    type        String
+    data        Json
+
+    @@unique([scenarioId, name])
+}
+
+model Sources {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+
+    @@unique([name])
+}
+
+model ScenariosSources {
+    id         String   @id @default(uuid())
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    scenarioId String
+    sourceId   String
+
+    @@unique([scenarioId, sourceId])
 }

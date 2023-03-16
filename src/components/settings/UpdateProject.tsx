@@ -44,8 +44,9 @@ export const UpdateProject = ({ project }: UpdateProjectProps) => {
           />
 
           <Button
-            className="self-center"
-            disabled={!(name !== project.name || description !== project.description) || updateMutation.isLoading}
+            className="mt-4 self-end"
+            loading={updateMutation.isLoading}
+            disabled={!(name !== project.name || description !== project.description)}
             type="submit"
           >
             Save

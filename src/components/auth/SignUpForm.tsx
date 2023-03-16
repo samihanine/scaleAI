@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { deleteCookie } from 'cookies-next';
 import { useState } from 'react';
 
-import { GoogleButton } from '@/components/auth/GoogleButton';
+//import { GoogleButton } from '@/components/auth/GoogleButton';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { LANG_COOKIE_KEY } from '@/constants';
 
@@ -100,6 +100,22 @@ export const SignUpForm: React.FC = () => {
         </div>
       </div>
 
+      <div className="space-y-1">
+        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          {t('reapeatPassword')}
+        </label>
+        <div className="mt-1">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autoComplete="repeat-password"
+            required
+            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+          />
+        </div>
+      </div>
+
       {errorMessage && <p className="text-sm text-red-600 ">{errorMessage}</p>}
 
       <div className="space-y-4">
@@ -111,7 +127,7 @@ export const SignUpForm: React.FC = () => {
           {loading ? <LoadingSpinner /> : t('signUp')}
         </button>
 
-        <GoogleButton type="signup" />
+        {/*<GoogleButton type="signup" />*/}
       </div>
     </form>
   );

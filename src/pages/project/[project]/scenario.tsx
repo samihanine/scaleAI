@@ -4,10 +4,10 @@ import { Wrapper } from '@/components/Wrapper';
 import { getLocaleProps } from '@/utils/locales';
 import { trpc } from '@/utils/trpc';
 import { useRouter } from 'next/router';
-import { LeadList } from '@/components/leads';
 import { LoadingPage } from '@/components/LoadingPage';
+import { ScenarioList } from '@/components/scenarios/ScenarioList';
 
-const SettingsPage: NextPage = () => {
+const ScenarioListPage: NextPage = () => {
   const t = useTranslations();
   const router = useRouter();
   const projectId = router.query?.project as string;
@@ -19,11 +19,11 @@ const SettingsPage: NextPage = () => {
 
   return (
     <Wrapper projectId={projectId} title={t('navigation.settings')}>
-      <LeadList projectId={projectId} />
+      <ScenarioList projectId={projectId} />
     </Wrapper>
   );
 };
 
 export const getServerSideProps = getLocaleProps;
 
-export default SettingsPage;
+export default ScenarioListPage;
