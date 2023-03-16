@@ -1,0 +1,47 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Settings {
+    userId   String @id @unique
+    language String
+}
+
+model Profiles {
+    userId      String    @id @unique
+    email       String
+    provider    String?
+    createdAt   DateTime  @default(now())
+    processedAt DateTime?
+}
+
+model Projects {
+    id          String   @id @default(uuid())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    userId      String
+    name        String
+    description String?
+
+    @@unique([userId, name])
+}
+
+model Leads {
+    id           String    @id @default(uuid())
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
+    projectId    String
+    firstname    String?
+    lastname     String?
+    organization String?
+    email        String
+    phone        String?
+    processedAt  DateTime?
+
+    @@unique([projectId, email])
+}

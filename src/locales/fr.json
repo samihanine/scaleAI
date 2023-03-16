@@ -1,0 +1,58 @@
+{
+  "hours": "{compte, pluriel, une {heure} autres {heures}}",
+  "minutes": "{count, plural, one {minute} other {minutes}}",
+  "auth": {
+    "save": "Save",
+    "signUpTitle": "Créer un nouveau compte",
+    "signInTitle": "Se connecter avec votre compte",
+    "forgotTitle": "Réinitialiser votre mot de passe",
+    "verifyTitle": "Vérification de l'adresse électronique",
+    "verifySuccessTitle": "Email vérifié !",
+    "setTitle": "Set a new password",
+    "reset": "Réinitialiser le mot de passe",
+    "set": "Enregistrer le nouveau mot de passe",
+    "setSuccess": "Successfully set a new password",
+    "setError": "Invalid access token or type",
+    "email": "Adresse électronique",
+    "password": "Password",
+    "forgot": "Vous avez oublié votre mot de passe ?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "signUpGoogle": "S'inscrire sur Google",
+    "signInGoogle": "Se connecter avec Google",
+    "or": " Or ",
+    "loginNow": "Continuer vers l'application"
+  },
+  "dashboard": {
+    "projects": "Liste des projets"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "settings": "Paramètres",
+    "signedInAs": "Connecter en tant que",
+    "signOut": "Se déconnecter",
+    "signOutError": "Impossible de se déconnecter",
+    "projects": "Projets",
+    "account": "Compte",
+    "leads": "Prospects"
+  },
+  "account": {
+    "save": "Save",
+    "language": "Langue",
+    "email": "Email",
+    "account": "Compte",
+    "updateSuccess": "Mise à jour réussie des paramètres",
+    "updateFail": "Échec de la mise à jour des paramètres",
+    "support": "Support",
+    "contact": "Vous pouvez nous contacter à "
+  },
+  "leads": {
+    "subtitle": "Voici une liste de prospects"
+  },
+  "projects": {
+    "create": "Créer un nouveau projet",
+    "name": "Nom",
+    "add": "Créer"
+  }
+}
