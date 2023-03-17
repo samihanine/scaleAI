@@ -10,7 +10,7 @@ const DashboardProject: NextPage = () => {
   const { data: projects } = trpc.projects.getAll.useQuery();
 
   return (
-    <Wrapper title={t('navigation.dashboard')}>
+    <Wrapper title={t('navigation.projects')}>
       <ProjectList projects={projects || []} />
     </Wrapper>
   );

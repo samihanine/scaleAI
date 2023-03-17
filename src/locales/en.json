@@ -26,7 +26,7 @@
     "loginNow": "Continue to application"
   },
   "dashboard": {
-    "projects": "List of projects"
+    "title": "Your project"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -50,7 +50,8 @@
     "contact": "You can contact us at "
   },
   "leads": {
-    "subtitle": "Here a list of leads"
+    "subtitle": "Here a list of leads",
+    "noLeadsFound": "No leads found, go to the scenario page to start."
   },
   "projects": {
     "title": "Your projects",
@@ -65,6 +66,8 @@
     "title": "Your scenarios",
     "create": "Create a new scenario",
     "name": "Name",
-    "add": "Create"
+    "add": "Create",
+    "choiceSource": "Choose a data source for the leads",
+    "source": "Source"
   }
 }

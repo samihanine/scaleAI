@@ -49,12 +49,12 @@ export const Table = ({ data, columns, isLoading }: TableProps) => {
               </tr>
             ))}
         </tbody>
+        {isLoading && (
+          <div className="flex h-full w-full items-center justify-center p-5">
+            <LoadingSpinner />
+          </div>
+        )}
       </table>
-      {isLoading && (
-        <div className="flex h-full w-full items-center justify-center p-5">
-          <LoadingSpinner />
-        </div>
-      )}
     </div>
   );
 };

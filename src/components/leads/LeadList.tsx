@@ -1,5 +1,5 @@
 import { trpc, type RouterOutputs } from '@/utils/trpc';
-//import { useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Table } from '../Table';
 import { Card } from '../Card';
@@ -11,7 +11,7 @@ type ProjectListProps = {
 };
 
 export const LeadList: React.FC<ProjectListProps> = ({ projectId }) => {
-  //const t = useTranslations('leads');
+  const t = useTranslations('leads');
   const { data: leads, isLoading } = trpc.leads.getAll.useQuery({
     projectId,
   });
@@ -43,9 +43,10 @@ export const LeadList: React.FC<ProjectListProps> = ({ projectId }) => {
   ];
 
   return (
-    <section className="flex flex-col gap-5" aria-labelledby="project-heading">
+    <section className="mx-auto flex w-full max-w-3xl flex-col gap-5" aria-labelledby="project-heading">
       <Card className="w-full max-w-full">
-        <Table isLoading={isLoading} data={leads || []} columns={columns || []} />
+        {!(!isLoading && !leads?.length) && <Table isLoading={isLoading} data={leads || []} columns={columns || []} />}
+        {!isLoading && !leads?.length && <p>{t('noLeadsFound')}</p>}
       </Card>
     </section>
   );

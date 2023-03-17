@@ -2,28 +2,27 @@ import type { NextPage } from 'next';
 import { useTranslations } from 'next-intl';
 import { Wrapper } from '@/components/Wrapper';
 import { getLocaleProps } from '@/utils/locales';
-import { trpc } from '@/utils/trpc';
 import { useRouter } from 'next/router';
-import { LeadList } from '@/components/leads';
 import { LoadingPage } from '@/components/LoadingPage';
+import { ScenarioPage } from '@/components/scenarios/ScenarioPage';
 
-const SettingsPage: NextPage = () => {
+const Scenario: NextPage = () => {
   const t = useTranslations();
   const router = useRouter();
+  const scenarioId = router.query?.scenario as string;
   const projectId = router.query?.project as string;
-  const { data: project } = trpc.projects.getOne.useQuery(projectId);
 
-  if (!project) {
+  if (!scenarioId || !projectId) {
     return <LoadingPage />;
   }
 
   return (
-    <Wrapper projectId={projectId} title={t('navigation.leads')}>
-      <LeadList projectId={projectId} />
+    <Wrapper projectId={projectId} title={t('navigation.scenario')}>
+      <ScenarioPage scenarioId={scenarioId} />
     </Wrapper>
   );
 };
 
 export const getServerSideProps = getLocaleProps;
 
-export default SettingsPage;
+export default Scenario;

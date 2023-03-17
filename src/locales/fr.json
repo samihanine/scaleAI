@@ -26,7 +26,7 @@
     "loginNow": "Continuer vers l'application"
   },
   "dashboard": {
-    "projects": "Liste des projets"
+    "title": "Votre projet"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -50,7 +50,8 @@
     "contact": "Vous pouvez nous contacter à "
   },
   "leads": {
-    "subtitle": "Voici une liste de prospects"
+    "subtitle": "Voici une liste de prospects",
+    "noLeadsFound": "Aucun prospect trouvé, allez dans la section scénario pour commencer."
   },
   "projects": {
     "title": "Vos projets",
@@ -65,6 +66,8 @@
     "title": "Vos scénarios",
     "create": "Créer un nouveau scénario",
     "name": "Nom",
-    "add": "Créer"
+    "add": "Créer",
+    "choiceSource": "Choisissez une source de données pour les prospects",
+    "source": "Source"
   }
 }

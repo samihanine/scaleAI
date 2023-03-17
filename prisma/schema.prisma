@@ -1,92 +1,151 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SourceType {
+  API
+  CSV
+  BODACC
+}
+
+enum EventType {
+  EMAIL
+  PHONE
+  LETTER
 }
 
 model Settings {
-    userId   String @id @unique
-    language String
+  userId   String @id @unique
+  language String
 }
 
 model Profiles {
-    userId      String    @id @unique
-    email       String
-    provider    String?
-    createdAt   DateTime  @default(now())
-    processedAt DateTime?
+  userId      String    @id @unique
+  email       String
+  provider    String?
+  createdAt   DateTime  @default(now())
+  processedAt DateTime?
 }
 
 model Projects {
-    id          String   @id @default(uuid())
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    userId      String
-    name        String
-    description String?
+  id          String      @id @default(uuid())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  userId      String
+  name        String
+  description String?
+  Scenarios   Scenarios[]
 
-    @@unique([userId, name])
-}
-
-model Leads {
-    id           String    @id @default(uuid())
-    createdAt    DateTime  @default(now())
-    updatedAt    DateTime  @updatedAt
-    email        String
-    projectId    String
-    firstname    String?
-    lastname     String?
-    organization String?
-    description  String?
-    activity     String?
-    phone        String?
-    processedAt  DateTime?
-    metadata     Json?
-
-    @@unique([projectId, email])
+  @@unique([userId, name])
 }
 
 model Scenarios {
-    id        String   @id @default(uuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    projectId String
-    name      String
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projectId String
+  name      String
+  project   Projects  @relation(fields: [projectId], references: [id])
+  Leads     Leads[]
+  Events    Events[]
+  Sources   Sources[]
 
-    @@unique([projectId, name])
+  @@unique([projectId, name])
 }
 
-model ScenariosEvents {
-    id          String   @id @default(uuid())
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    scenarioId  String
-    name        String
-    description String?
-    type        String
-    data        Json
+model Leads {
+  id           String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  email        String
+  scenarioId   String
+  firstname    String?
+  lastname     String?
+  organization String?
+  description  String?
+  activity     String?
+  phone        String?
+  processedAt  DateTime?
+  metadata     Json?
+  scenario     Scenarios @relation(fields: [scenarioId], references: [id])
 
-    @@unique([scenarioId, name])
+  @@unique([scenarioId, email])
+}
+
+model Events {
+  id                  String    @id @default(uuid())
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  scenarioId          String
+  hoursAfterLastEvent Int
+  name                String
+  description         String?
+  type                EventType
+  metadata            Json?
+  scenario            Scenarios @relation(fields: [scenarioId], references: [id])
+
+  @@unique([scenarioId, name])
 }
 
 model Sources {
-    id        String   @id @default(uuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    name      String
+  id             String          @id @default(uuid())
+  name           String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  scenarioId     String
+  sourceType     SourceType
+  apiSourceId    String
+  csvSourceId    String
+  bodaccSourceId String
+  metadata       Json?
+  scenario       Scenarios       @relation(fields: [scenarioId], references: [id])
+  apiSources     ApiSources      @relation(fields: [apiSourceId], references: [id])
+  csvSources     CsvSources      @relation(fields: [csvSourceId], references: [id])
+  bodaccSources  BodaccSources   @relation(fields: [bodaccSourceId], references: [id])
+  SourceFilters  SourceFilters[]
 
-    @@unique([name])
+  @@unique([scenarioId, name])
 }
 
-model ScenariosSources {
-    id         String   @id @default(uuid())
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
-    scenarioId String
-    sourceId   String
+model CsvSources {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  fileName  String
+  metadata  Json?
+  Sources   Sources[]
+}
 
-    @@unique([scenarioId, sourceId])
+model BodaccSources {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  metadata  Json?
+  Sources   Sources[]
+}
+
+model ApiSources {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  url       String
+  apiKey    String?
+  metadata  Json?
+  Sources   Sources[]
+}
+
+model SourceFilters {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  sourceId  String
+  key       String
+  value     String
+  metadata  Json?
+  source    Sources  @relation(fields: [sourceId], references: [id])
 }
