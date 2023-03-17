@@ -1,19 +1,23 @@
-import { trpc } from '@/utils/trpc';
+//import { trpc } from '@/utils/trpc';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Card } from '../Card';
 import { Select } from '../inputs';
+import { generateMessage, exampleProps } from '@/utils/generateMessage';
 
 type ScenarioPageProps = {
   scenarioId: string;
 };
 
-export const ScenarioPage: React.FC<ScenarioPageProps> = ({ scenarioId }) => {
+export const ScenarioPage: React.FC<ScenarioPageProps> = ({}) => {
   const t = useTranslations('scenarios');
-  const { data: scenario, isLoading } = trpc.scenarios.getOne.useQuery(scenarioId);
+  //const { data: scenario, isLoading } = trpc.scenarios.getOne.useQuery(scenarioId);
   const [source, setSource] = useState('csv');
 
-  console.log(scenario, isLoading);
+  const test = async () => {
+    const res = await generateMessage(exampleProps);
+    console.log(res);
+  };
 
   return (
     <section className="mx-auto w-full" aria-labelledby="project-heading">
@@ -44,6 +48,7 @@ export const ScenarioPage: React.FC<ScenarioPageProps> = ({ scenarioId }) => {
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSource(e.currentTarget.value)}
         />
       </Card>
+      <button onClick={test}>test</button>
     </section>
   );
 };

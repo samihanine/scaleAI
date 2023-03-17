@@ -8,7 +8,7 @@ const leadSchema = z.object({
   lastname: z.string().optional(),
   email: z.string(),
   phone: z.string().optional(),
-  projectId: z.string(),
+  scenarioId: z.string(),
   description: z.string().optional(),
   activity: z.string().optional(),
   organization: z.string().optional(),
@@ -28,21 +28,17 @@ export const leadsRouter = router({
 
     return lead;
   }),
-  getAll: protectedProcedure
-    .input(
-      z.object({
-        projectId: z.string(),
-      })
-    )
-    .query(async ({ ctx, input }) => {
-      const leads = await ctx.prisma.leads.findMany({
-        where: {
-          projectId: input.projectId,
+  getAllByProjectId: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
+    const leads = await ctx.prisma.leads.findMany({
+      where: {
+        scenario: {
+          projectId: input,
         },
-      });
+      },
+    });
 
-      return leads;
-    }),
+    return leads;
+  }),
   create: protectedProcedure.input(leadSchema).mutation(async ({ ctx, input }) => {
     const lead = await ctx.prisma.leads.create({
       data: input,

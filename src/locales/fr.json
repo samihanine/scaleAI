@@ -1,8 +1,8 @@
 {
   "hours": "{compte, pluriel, une {heure} autres {heures}}",
-  "minutes": "{count, plural, one {minute} other {minutes}}",
+  "minutes": "{count, plural, une {minute} autre {minutes}}",
   "auth": {
-    "save": "Save",
+    "save": "Enregistrer",
     "signUpTitle": "Créer un nouveau compte",
     "signInTitle": "Se connecter avec votre compte",
     "forgotTitle": "Réinitialiser votre mot de passe",
@@ -40,10 +40,10 @@
     "scenario": "Scénario"
   },
   "account": {
-    "save": "Save",
+    "save": "Enregistrer",
     "language": "Langue",
     "email": "Email",
-    "account": "Compte",
+    "account": "Mon compte",
     "updateSuccess": "Mise à jour réussie des paramètres",
     "updateFail": "Échec de la mise à jour des paramètres",
     "support": "Support",

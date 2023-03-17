@@ -4,7 +4,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { Table } from '../Table';
 import { Card } from '../Card';
 
-type Lead = RouterOutputs['leads']['getAll'][0];
+type Lead = RouterOutputs['leads']['getAllByProjectId'][0];
 
 type ProjectListProps = {
   projectId: string;
@@ -12,9 +12,7 @@ type ProjectListProps = {
 
 export const LeadList: React.FC<ProjectListProps> = ({ projectId }) => {
   const t = useTranslations('leads');
-  const { data: leads, isLoading } = trpc.leads.getAll.useQuery({
-    projectId,
-  });
+  const { data: leads, isLoading } = trpc.leads.getAllByProjectId.useQuery(projectId);
 
   const columnHelper = createColumnHelper<Lead>();
 

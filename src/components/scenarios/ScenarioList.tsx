@@ -8,6 +8,7 @@ import { Modal } from '../Modal';
 import { TextInput } from '../inputs';
 import { Card } from '../Card';
 import { Link } from '../Link';
+import { ChartBarIcon } from '@heroicons/react/outline';
 
 type ScenarioListProps = {
   projectId: string;
@@ -34,25 +35,25 @@ export const ScenarioList: React.FC<ScenarioListProps> = ({ projectId }) => {
   };
 
   return (
-    <section className="flex flex-col gap-5" aria-labelledby="project-heading">
-      <Button onClick={() => setIsOpen(true)}>{t('create')}</Button>
-      <h2 id="project-heading" className="sr-only">
-        {t('title')}
-      </h2>
-      <Card className="mx-auto flex w-full max-w-3xl flex-col gap-1">
-        {!isLoading &&
-          scenarios?.map((scenario) => (
-            <Link
-              className="border-b p-3 text-gray-800 hover:bg-gray-50 hover:text-gray-600 "
-              href={'/project/' + projectId + '/scenario/' + scenario.id}
-              key={scenario.id}
-            >
-              <div>
-                <p>{scenario.name}</p>
-              </div>
-            </Link>
-          ))}
-        {isLoading && <LoadingSpinner />}
+    <section className="flex flex-col gap-7" aria-labelledby="project-heading">
+      <Card className="mx-auto flex w-full max-w-3xl flex-col gap-5">
+        <Button className="self-center" onClick={() => setIsOpen(true)}>
+          {t('create')}
+        </Button>
+      </Card>
+      <Card className="mx-auto flex w-full max-w-3xl flex-col gap-5">
+        <div className="flex flex-wrap gap-5">
+          {!isLoading &&
+            scenarios?.map((scenario) => (
+              <Link href={'/project/' + projectId + '/scenario/' + scenario.id} key={scenario.id}>
+                <div className="flex h-40 w-fit min-w-[140px] flex-col items-center justify-center gap-4 rounded-lg border p-5 text-gray-800 hover:bg-gray-50 hover:text-gray-600">
+                  <p>{scenario.name}</p>
+                  <ChartBarIcon className="h-12 w-12 text-primary" aria-hidden="true" />
+                </div>
+              </Link>
+            ))}
+          {isLoading && <LoadingSpinner />}
+        </div>
       </Card>
       {isOpen && (
         <Modal onClose={() => setIsOpen(false)}>

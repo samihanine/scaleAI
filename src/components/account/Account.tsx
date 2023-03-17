@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { setCookie } from 'cookies-next';
 import toast from 'react-hot-toast';
-
-import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { LANG_COOKIE_KEY } from '@/constants';
 import { trpc } from '@/utils/trpc';
+import { Button } from '../Button';
 
 export const Account: React.FC = () => {
   const t = useTranslations('account');
@@ -54,7 +53,7 @@ export const Account: React.FC = () => {
   return (
     <section aria-labelledby="account-heading">
       <div className="mx-auto max-w-3xl shadow sm:overflow-hidden sm:rounded-md">
-        <div className="space-y-4 bg-white px-4 py-6 sm:p-6">
+        <div className="flex flex-col space-y-4 bg-white px-4 py-6 sm:p-6">
           <div>
             <h2 id="account-heading" className="text-lg font-medium leading-6 text-gray-900">
               {t('account')}
@@ -79,18 +78,9 @@ export const Account: React.FC = () => {
               </select>
             </div>
           </div>
-        </div>
-        <div className="bg-white px-4 py-3 text-right sm:px-6">
-          <button
-            type="submit"
-            className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            onClick={saveLocale}
-            disabled={mutation.isLoading}
-          >
-            {/* invisible means text remains hidden in the background to preserve the button width */}
-            <span className={mutation.isLoading ? 'invisible' : undefined}>{t('save')}</span>
-            {mutation.isLoading && <LoadingSpinner className="absolute" />}
-          </button>
+          <Button onClick={saveLocale} type="submit" loading={mutation.isLoading} className="!mt-7 self-end">
+            {t('save')}
+          </Button>
         </div>
       </div>
     </section>

@@ -26,7 +26,8 @@ type Props = {
 
 export const Wrapper: React.FC<Props> = ({ children, title, projectId = '' }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { pathname } = useRouter();
+  const router = useRouter();
+  const { asPath } = router;
 
   const t = useTranslations('navigation');
 
@@ -46,7 +47,9 @@ export const Wrapper: React.FC<Props> = ({ children, title, projectId = '' }) =>
     [projectId, t]
   );
 
-  const currentItem = navigation.find((item) => pathname.startsWith(item.href));
+  const currentItem = navigation.find((item) =>
+    item.href === '/' ? item.href === asPath : asPath.startsWith(item.href)
+  );
 
   return (
     <>
@@ -100,7 +103,7 @@ export const Wrapper: React.FC<Props> = ({ children, title, projectId = '' }) =>
                 </Link>
                 <nav className="mt-5 space-y-1 px-2">
                   {navigation.map((item) => {
-                    const isActive = pathname === '/' ? item.href.startsWith(pathname) : item.href === pathname;
+                    const isActive = currentItem?.href === item.href;
                     return (
                       <Link
                         key={item.name}
@@ -142,28 +145,29 @@ export const Wrapper: React.FC<Props> = ({ children, title, projectId = '' }) =>
               <LogoText className="h-8 w-auto" />
             </Link>
             <nav className="mt-5 flex-1 space-y-1 bg-white px-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  passHref
-                  className={classNames(
-                    item.href === pathname.replace('[project]', projectId || '')
-                      ? 'bg-gray-100 text-gray-900'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                    'group flex items-center rounded-md px-2 py-2 text-sm font-medium'
-                  )}
-                >
-                  <item.icon
+              {navigation.map((item) => {
+                const isActive = currentItem?.href === item.href;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    passHref
                     className={classNames(
-                      item.href === pathname ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                      'mr-3 h-6 w-6 flex-shrink-0'
+                      isActive ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                      'group flex items-center rounded-md px-2 py-2 text-sm font-medium'
                     )}
-                    aria-hidden="true"
-                  />
-                  {item.name}
-                </Link>
-              ))}
+                  >
+                    <item.icon
+                      className={classNames(
+                        isActive ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                        'mr-3 h-6 w-6 flex-shrink-0'
+                      )}
+                      aria-hidden="true"
+                    />
+                    {item.name}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
           <div className="flex w-full flex-shrink-0 border-t border-gray-200 p-4">

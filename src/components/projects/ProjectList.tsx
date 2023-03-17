@@ -4,14 +4,18 @@ import { useState } from 'react';
 import { Modal } from '../Modal';
 import { TextInput } from '../inputs';
 import { useRouter } from 'next/router';
-import { ProjectCard } from './ProjectCard';
 import { useTranslations } from 'next-intl';
+import { Card } from '../Card';
+import { FolderIcon } from '@heroicons/react/outline';
+import { Link } from '../Link';
+import { LoadingSpinner } from '../LoadingSpinner';
 
 type ProjectListProps = {
   projects: RouterOutputs['projects']['getAll'];
 };
 
-export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+export const ProjectList: React.FC<ProjectListProps> = () => {
+  const { data: projects, isLoading } = trpc.projects.getAll.useQuery();
   const [isOpen, setIsOpen] = useState(false);
   const createMutation = trpc.projects.create.useMutation();
   const router = useRouter();
@@ -28,16 +32,26 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
   };
 
   return (
-    <section className="flex flex-col gap-5" aria-labelledby="project-heading">
-      <Button onClick={() => setIsOpen(true)}>{t('create')}</Button>
-      <h2 id="project-heading" className="sr-only">
-        {t('title')}
-      </h2>
-      <div className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
+    <section className="flex flex-col gap-7" aria-labelledby="project-heading">
+      <Card className="mx-auto flex w-full max-w-3xl flex-col gap-5">
+        <Button className="self-center" onClick={() => setIsOpen(true)}>
+          {t('create')}
+        </Button>
+      </Card>
+      <Card className="mx-auto flex w-full max-w-3xl flex-col gap-5">
+        <div className="flex flex-wrap gap-5">
+          {!isLoading &&
+            projects?.map((project) => (
+              <Link href={'/project/' + project.id + '/dashboard/'} key={project.id}>
+                <div className="flex h-40 w-fit min-w-[140px] flex-col items-center justify-center gap-4 rounded-lg border p-5 text-gray-800 hover:bg-gray-50 hover:text-gray-600">
+                  <p>{project.name}</p>
+                  <FolderIcon className="h-12 w-12 text-primary" aria-hidden="true" />
+                </div>
+              </Link>
+            ))}
+          {isLoading && <LoadingSpinner />}
+        </div>
+      </Card>
       {isOpen && (
         <Modal onClose={() => setIsOpen(false)}>
           <div className="flex flex-col gap-10">
